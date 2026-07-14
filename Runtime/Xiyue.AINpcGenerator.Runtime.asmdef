@@ -1,0 +1,14 @@
+{
+  "name": "Xiyue.AINpcGenerator.Runtime",
+  "rootNamespace": "Xiyue.AINpcGenerator",
+  "references": [],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

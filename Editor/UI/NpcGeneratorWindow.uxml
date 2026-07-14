@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement class="page">
+        <ui:Label text="创建 AI 角色" class="title" />
+        <ui:Label text="AI 负责结构化设定，Unity 使用认证部件稳定拼装。每个角色是独立任务。" class="subtitle" />
+
+        <ui:VisualElement class="section">
+            <ui:Label text="角色描述" class="section-title" />
+            <ui:TextField name="prompt" multiline="true" class="prompt" />
+            <ui:VisualElement class="row">
+                <ui:TextField name="api-key" label="Gemini API Key" class="grow" />
+                <ui:Button name="test-api" text="测试 API（1 次请求）" />
+            </ui:VisualElement>
+            <ui:VisualElement class="row wrap">
+                <ui:DropdownField name="model-preset" label="模型" class="grow" />
+                <ui:TextField name="custom-model" label="自定义模型 ID" class="grow" />
+                <ui:Toggle name="batch" label="批量生成" value="false" />
+                <ui:IntegerField name="count" label="数量" value="10" />
+                <ui:IntegerField name="concurrency" label="最大并发" value="4" />
+                <ui:Toggle name="auto-npc" label="完成后添加 NPC" value="false" />
+            </ui:VisualElement>
+            <ui:Label text="模型选择只影响新建任务；已有任务继续使用创建时保存的模型。" class="hint" />
+            <ui:VisualElement class="row wrap">
+                <uie:ObjectField name="rig-profile" label="Rig Profile" class="grow" />
+                <uie:ObjectField name="part-catalog" label="部件库" class="grow" />
+                <ui:TextField name="output-root" label="输出目录" class="grow" />
+                <ui:Button name="create-demo" text="创建示例部件库" />
+                <ui:Button name="create-demo-scene" text="用已生成角色创建演示场景" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement class="toolbar row wrap">
+            <ui:Button name="start" text="开始生成" class="primary" />
+            <ui:Button name="pause" text="暂停" />
+            <ui:Button name="resume" text="继续" />
+            <ui:Button name="stop" text="停止待执行任务" />
+            <ui:Button name="retry-all" text="重试失败项" />
+            <ui:Button name="clear-completed" text="清理完成项" />
+        </ui:VisualElement>
+
+        <ui:HelpBox name="message" text="" message-type="Info" />
+        <ui:Label name="summary" class="summary" />
+        <ui:ListView name="job-list" class="job-list" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,29 @@
+{
+  "name": "com.xiyue.ai-npc-generator",
+  "version": "0.1.0",
+  "displayName": "Xiyue AI NPC Generator",
+  "description": "Editor-first Gemini character specification generation, deterministic modular pixel assembly, Unity asset creation, and lightweight 2D NPC runtime.",
+  "unity": "6000.3",
+  "unityRelease": "17f1",
+  "documentationUrl": "https://ai.google.dev/gemini-api/docs/structured-output",
+  "keywords": [
+    "ai",
+    "npc",
+    "pixel-art",
+    "gemini",
+    "editor"
+  ],
+  "author": {
+    "name": "Xiyue"
+  },
+  "dependencies": {
+    "com.unity.2d.sprite": "1.0.0"
+  },
+  "samples": [
+    {
+      "displayName": "Demo Setup",
+      "description": "Documentation for creating the procedural demo catalog from the editor window.",
+      "path": "Samples~/Demo"
+    }
+  ]
+}

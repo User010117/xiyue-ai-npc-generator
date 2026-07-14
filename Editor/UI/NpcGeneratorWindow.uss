@@ -1,0 +1,115 @@
+.page {
+    flex-grow: 1;
+    padding: 12px;
+}
+
+.title {
+    font-size: 22px;
+    -unity-font-style: bold;
+    margin-bottom: 2px;
+}
+
+.subtitle {
+    color: rgb(160, 165, 175);
+    margin-bottom: 10px;
+}
+
+.hint {
+    color: rgb(140, 148, 162);
+    font-size: 11px;
+    margin-top: 2px;
+    margin-bottom: 5px;
+}
+
+.section {
+    padding: 10px;
+    border-width: 1px;
+    border-color: rgb(70, 74, 82);
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.section-title {
+    -unity-font-style: bold;
+    margin-bottom: 4px;
+}
+
+.prompt {
+    min-height: 86px;
+    margin-bottom: 6px;
+}
+
+.row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.grow {
+    flex-grow: 1;
+    min-width: 220px;
+}
+
+.toolbar {
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
+
+.toolbar > Button,
+.row > Button {
+    margin-right: 5px;
+    margin-bottom: 4px;
+}
+
+.primary {
+    background-color: rgb(47, 100, 190);
+    color: white;
+    -unity-font-style: bold;
+}
+
+.summary {
+    -unity-font-style: bold;
+    margin-top: 7px;
+    margin-bottom: 5px;
+}
+
+.job-list {
+    flex-grow: 1;
+    min-height: 240px;
+}
+
+.job-card {
+    border-width: 1px;
+    border-color: rgb(70, 74, 82);
+    border-radius: 4px;
+    padding: 7px;
+    margin-bottom: 5px;
+}
+
+.job-title {
+    -unity-font-style: bold;
+}
+
+.job-error {
+    color: rgb(235, 110, 95);
+    white-space: normal;
+}
+
+.job-detail {
+    color: rgb(165, 170, 180);
+    white-space: normal;
+}
+
+.job-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.job-buttons > Button {
+    margin-right: 4px;
+    margin-bottom: 3px;
+}
