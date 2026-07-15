@@ -101,7 +101,6 @@ namespace Xiyue.AINpcGenerator.Editor
 
             NpcGeneratorProjectSettings settings = NpcGeneratorProjectSettings.instance;
             settings.rigProfileGuid = AssetDatabase.AssetPathToGUID(ProfilePath);
-            settings.partCatalogGuid = AssetDatabase.AssetPathToGUID(CatalogPath);
             settings.Persist();
 
             NpcPartEntry Part(

@@ -62,7 +62,11 @@ namespace Xiyue.AINpcGenerator.Editor
                     continue;
                 }
 
-                NpcPartEntry selected = Select(entries, desiredTags, priorityTags, seed, slot);
+                // 先排除不兼容项再评分，避免选中后回退到同样不兼容的 fallback。
+                List<NpcPartEntry> compatibleEntries = entries
+                    .Where(entry => !IsIncompatible(entry, desiredTags))
+                    .ToList();
+                NpcPartEntry selected = Select(compatibleEntries, desiredTags, priorityTags, seed, slot);
                 if (selected == null)
                 {
                     if (slot is NpcPartSlot.Body or NpcPartSlot.UpperOutfit)
@@ -70,16 +74,6 @@ namespace Xiyue.AINpcGenerator.Editor
                         throw new InvalidOperationException($"No compatible or fallback part exists for required slot '{slot}'.");
                     }
                     continue;
-                }
-
-                if (selected.incompatibleTags != null && selected.incompatibleTags.Any(tag => desiredTags.Contains(Normalize(tag))))
-                {
-                    NpcPartEntry fallback = entries.FirstOrDefault(entry => entry.isFallback);
-                    if (fallback == null || fallback == selected)
-                    {
-                        continue;
-                    }
-                    selected = fallback;
                 }
 
                 result.sourceParts.Add(selected);
@@ -93,8 +87,17 @@ namespace Xiyue.AINpcGenerator.Editor
 
             result.sourceParts.Sort((left, right) => ((int)left.slot).CompareTo((int)right.slot));
             result.resolvedAppearance.parts.Sort((left, right) => ((int)left.slot).CompareTo((int)right.slot));
-            result.resolvedAppearance.fingerprint = BuildFingerprint(result.resolvedAppearance.parts, seed);
+            result.resolvedAppearance.fingerprint = BuildFingerprint(result.resolvedAppearance.parts);
             return result;
+        }
+
+        /// <summary>
+        /// 判断部件是否与角色期望标签冲突；空数组视为兼容，便于旧目录继续使用。
+        /// </summary>
+        private static bool IsIncompatible(NpcPartEntry entry, HashSet<string> desiredTags)
+        {
+            return entry.incompatibleTags != null &&
+                   entry.incompatibleTags.Any(tag => desiredTags.Contains(Normalize(tag)));
         }
 
         private static NpcPartEntry Select(
@@ -199,7 +202,7 @@ namespace Xiyue.AINpcGenerator.Editor
             }.Where(tag => !string.IsNullOrWhiteSpace(tag)).Select(Normalize), StringComparer.OrdinalIgnoreCase);
         }
 
-        private static string BuildFingerprint(IEnumerable<NpcResolvedPart> parts, int seed)
+        private static string BuildFingerprint(IEnumerable<NpcResolvedPart> parts)
         {
             var builder = new StringBuilder();
             foreach (NpcResolvedPart part in parts)

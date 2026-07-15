@@ -1,45 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
     <ui:VisualElement class="page">
-        <ui:Label text="创建 AI 角色" class="title" />
-        <ui:Label text="AI 负责结构化设定，Unity 使用认证部件稳定拼装。每个角色是独立任务。" class="subtitle" />
-
-        <ui:VisualElement class="section">
-            <ui:Label text="角色描述" class="section-title" />
-            <ui:TextField name="prompt" multiline="true" class="prompt" />
-            <ui:VisualElement class="row">
-                <ui:TextField name="api-key" label="Gemini API Key" class="grow" />
-                <ui:Button name="test-api" text="测试 API（1 次请求）" />
+        <ui:VisualElement class="hero">
+            <ui:VisualElement class="brand-mark">
+                <ui:Label text="AI" class="brand-mark-text" />
             </ui:VisualElement>
-            <ui:VisualElement class="row wrap">
-                <ui:DropdownField name="model-preset" label="模型" class="grow" />
-                <ui:TextField name="custom-model" label="自定义模型 ID" class="grow" />
-                <ui:Toggle name="batch" label="批量生成" value="false" />
-                <ui:IntegerField name="count" label="数量" value="10" />
-                <ui:IntegerField name="concurrency" label="最大并发" value="4" />
-                <ui:Toggle name="auto-npc" label="完成后添加 NPC" value="false" />
+            <ui:VisualElement class="hero-copy grow">
+                <ui:Label text="创建 AI 角色" class="title" />
+                <ui:Label text="Gemini 生成 Sprite Sheet，确认后由 Unity 自动切片并创建 NPC。" class="subtitle" />
             </ui:VisualElement>
-            <ui:Label text="模型选择只影响新建任务；已有任务继续使用创建时保存的模型。" class="hint" />
-            <ui:VisualElement class="row wrap">
-                <uie:ObjectField name="rig-profile" label="Rig Profile" class="grow" />
-                <uie:ObjectField name="part-catalog" label="部件库" class="grow" />
-                <ui:TextField name="output-root" label="输出目录" class="grow" />
-                <ui:Button name="create-demo" text="创建示例部件库" />
-                <ui:Button name="create-demo-scene" text="用已生成角色创建演示场景" />
-            </ui:VisualElement>
+            <ui:Label text="图片优先 · 本地装配" class="status-chip" />
         </ui:VisualElement>
 
-        <ui:VisualElement class="toolbar row wrap">
-            <ui:Button name="start" text="开始生成" class="primary" />
-            <ui:Button name="pause" text="暂停" />
-            <ui:Button name="resume" text="继续" />
-            <ui:Button name="stop" text="停止待执行任务" />
-            <ui:Button name="retry-all" text="重试失败项" />
-            <ui:Button name="clear-completed" text="清理完成项" />
-        </ui:VisualElement>
+        <ui:ScrollView class="settings-scroll" mode="Vertical">
+            <ui:VisualElement class="section settings-section">
+                <ui:VisualElement class="section-header">
+                    <ui:Label text="01" class="section-index" />
+                    <ui:VisualElement class="grow">
+                        <ui:Label text="角色与生成设置" class="section-title" />
+                        <ui:Label text="设置区高度不足时可独立滚动，下方任务区始终保留操作空间。" class="hint" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
 
-        <ui:HelpBox name="message" text="" message-type="Info" />
-        <ui:Label name="summary" class="summary" />
-        <ui:ListView name="job-list" class="job-list" />
+                <ui:Label text="使用流程：描述角色  →  参考图（可选）  →  配置输出  →  开始生成  →  查看任务" class="quick-guide" tooltip="先填写角色描述；需要固定画风时添加参考图；确认 Rig、部件库和输出目录后开始生成。任务区可暂停、继续、重试或清理。" />
+
+                <ui:Label text="角色描述" class="field-heading" tooltip="用自然语言描述角色外观、服装、性格与用途。描述越明确，生成的结构化角色设定越稳定。" />
+                <ui:TextField name="prompt" multiline="true" class="prompt" tooltip="例如：年轻女性铁匠，棕色短发，深色围裙，四方向行走。该描述会与生成指令和参考图一起发送给图片模型。" />
+
+                <ui:Foldout text="生成指令（随预设保存）" value="false" class="instruction-foldout" tooltip="类似 Google Gem 的长期指令。默认规则适合四方向像素 Sprite Sheet，也可以为某个预设加入 A0/A1/A2 等专用规则。">
+                    <ui:TextField name="instruction" multiline="true" class="instruction" />
+                    <ui:Button name="reset-instruction" text="恢复默认指令" class="quiet-button" />
+                </ui:Foldout>
+
+                <ui:VisualElement class="subsection prompt-library-panel">
+                    <ui:Label text="描述记录与预设" class="field-heading" tooltip="关闭窗口时会自动保存当前描述与参考图；成功创建任务后还会加入最近生成历史。" />
+                    <ui:VisualElement class="row wrap">
+                        <ui:DropdownField name="prompt-record" label="历史 / 预设" class="grow record-select" tooltip="选择之前生成过的描述，或你主动保存的命名预设。载入时会同时恢复对应参考图。" />
+                        <ui:Button name="delete-preset" text="删除预设" class="quiet-button" tooltip="只删除当前选中的命名预设；生成历史不会被删除。" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="row wrap">
+                        <ui:TextField name="preset-name" label="预设名称" class="grow preset-name" tooltip="例如“蓝甲战士”或“村庄商人”。同名保存会更新该预设。" />
+                        <ui:Button name="save-preset" text="保存当前为预设" class="utility-button" tooltip="把当前角色描述和参考图保存为命名预设；同名预设会被安全更新。" />
+                    </ui:VisualElement>
+                    <ui:Label text="选择记录会立即恢复描述、指令、绿幕容差和参考图；命名预设图片复制到 Assets/XiyueGenerated/AINpcPresets。" class="hint" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="subsection reference-panel">
+                    <ui:VisualElement class="row wrap">
+                        <ui:Label text="默认参考图" class="field-heading inline-heading" tooltip="参考图用于约束角色的视觉方向；不添加也可以生成。新建任务会保存当前参考图快照。" />
+                        <ui:Label text="PNG/JPEG · 最多 6 张 · 单张 5MB · 总计 14MB" class="hint grow" />
+                        <ui:Button name="add-reference" text="添加参考图" class="utility-button" tooltip="从 Unity Project 中选择 PNG/JPEG Texture2D。也可以直接把图片资产拖到下方参考图区域。" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="reference-list" class="reference-list" tooltip="把 Project 窗口中的图片拖到这里；空槽也支持直接选择 Texture2D。" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="subsection">
+                    <ui:Label text="AI 与批量设置" class="field-heading" />
+                    <ui:VisualElement class="row wrap">
+                        <ui:TextField name="api-key" label="Gemini API Key" class="grow" tooltip="用于请求 Gemini。密钥只保存在当前 Unity 编辑器进程内，不写入任务、资产或清单。" />
+                        <ui:Button name="test-api" text="测试 API（1 次请求）" class="utility-button" tooltip="发送一次最小请求，检查密钥、网络和模型是否可用；会产生一次 API 调用。" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="row wrap">
+                        <ui:DropdownField name="model-preset" label="模型" class="grow" tooltip="Nano Banana 2 是通用推荐；Nano Banana Pro 更适合复杂指令和高质量资产。模型只影响新任务。" />
+                        <ui:TextField name="custom-model" label="自定义模型 ID" class="grow" tooltip="预设中没有目标模型时填写完整模型 ID；留空则使用上方预设。" />
+                        <ui:Toggle name="batch" label="批量生成" value="false" tooltip="开启后会按“数量”创建多个独立任务；关闭时只创建一个任务。" />
+                        <ui:IntegerField name="count" label="数量" value="10" tooltip="批量生成时创建的角色任务数。" />
+                        <ui:IntegerField name="concurrency" label="最大并发" value="4" tooltip="同时执行的 AI 请求上限。网络或配额不稳定时请调低。" />
+                        <ui:Toggle name="auto-complete" label="生成后自动完成 NPC" value="false" tooltip="图片网格验证通过后直接切片并创建预制体；发现布局警告时仍会停在预览。" />
+                        <ui:Toggle name="auto-npc" label="完成后添加到场景" value="false" tooltip="NPC 预制体生成成功后，将一个实例放入当前场景。" />
+                    </ui:VisualElement>
+                    <ui:Slider name="green-tolerance" label="绿幕容差" low-value="0.05" high-value="0.8" value="0.32" show-input-field="true" tooltip="数值越高，越多接近绿色的背景会变透明；绿色服装较多时应调低。该值随预设保存。" />
+                    <ui:Label text="模型、指令、绿幕容差和参考图只影响新任务；已有任务使用创建时的冻结快照。" class="hint" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="subsection output-panel">
+                    <ui:Label text="Unity 输出" class="field-heading" />
+                    <ui:VisualElement class="row wrap">
+                        <uie:ObjectField name="rig-profile" label="Rig Profile" class="grow" tooltip="定义每帧尺寸、四方向顺序、每行帧数、像素单位和动画帧率。" />
+                        <ui:TextField name="output-root" label="输出目录" class="grow" tooltip="生成资产保存位置，必须位于项目 Assets 目录内。" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="row wrap utility-row">
+                        <ui:Button name="create-demo" text="创建示例 Rig" class="utility-button" tooltip="创建一个默认 48×48、四方向、每方向 4 帧的 Rig Profile。" />
+                        <ui:Button name="create-demo-scene" text="创建演示场景" tooltip="使用已生成角色创建演示场景，便于检查移动、交互和动画效果。" class="utility-button" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:ScrollView>
+
+        <ui:VisualElement class="queue-panel">
+            <ui:VisualElement class="queue-header">
+                <ui:VisualElement class="queue-heading grow">
+                    <ui:VisualElement class="row">
+                        <ui:Label text="02" class="section-index" />
+                        <ui:Label text="生成任务" class="queue-title" />
+                    </ui:VisualElement>
+                    <ui:Label text="每个角色独立排队，可暂停、重试或清理。" class="hint queue-hint" />
+                </ui:VisualElement>
+                <ui:Label name="summary" class="summary" tooltip="依次显示任务总数、排队、运行、完成、失败和待审核数量。" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="toolbar row wrap">
+                <ui:Button name="start" text="开始生成" class="primary" tooltip="按当前设置创建任务并开始处理。批量开关关闭时只创建一个任务。" />
+                <ui:Button name="pause" text="暂停" tooltip="暂停领取新的排队任务；已经发出的请求会继续完成。" />
+                <ui:Button name="resume" text="继续" tooltip="恢复处理尚未开始的排队任务。" />
+                <ui:Button name="stop" text="停止待执行" class="warning-button" tooltip="停止仍在排队、尚未执行的任务；不会删除已经生成的资产。" />
+                <ui:Button name="retry-all" text="重试失败项" tooltip="把所有失败任务重新放回队列，并保留任务创建时的模型与参考图快照。" />
+                <ui:Button name="clear-completed" text="清理完成项" class="quiet-button" tooltip="仅从任务列表移除已完成记录，不删除 Unity 中已经生成的资产。" />
+            </ui:VisualElement>
+
+            <ui:HelpBox name="message" text="" message-type="Info" tooltip="显示当前操作提示、参数错误、网络错误和资产生成结果。" />
+            <ui:ListView name="job-list" class="job-list" tooltip="每张任务卡显示当前阶段和错误详情；任务自身的操作按钮会按状态出现。" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

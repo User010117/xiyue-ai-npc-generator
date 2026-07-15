@@ -1,17 +1,80 @@
 .page {
     flex-grow: 1;
     padding: 12px;
+    overflow: hidden;
+}
+
+.hero {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    background-color: rgb(43, 47, 55);
+    border-left-width: 3px;
+    border-left-color: rgb(70, 132, 220);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-top-color: rgb(65, 70, 80);
+    border-right-color: rgb(65, 70, 80);
+    border-bottom-color: rgb(65, 70, 80);
+    border-radius: 4px;
+}
+
+.brand-mark {
+    width: 38px;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    background-color: rgb(47, 100, 190);
+    border-radius: 4px;
+}
+
+.brand-mark-text {
+    color: white;
+    font-size: 15px;
+    -unity-font-style: bold;
+}
+
+.hero-copy {
+    min-width: 260px;
 }
 
 .title {
-    font-size: 22px;
+    font-size: 20px;
     -unity-font-style: bold;
     margin-bottom: 2px;
 }
 
 .subtitle {
     color: rgb(160, 165, 175);
-    margin-bottom: 10px;
+}
+
+.status-chip {
+    flex-shrink: 0;
+    padding: 4px 8px;
+    margin-left: 8px;
+    color: rgb(145, 205, 165);
+    background-color: rgb(45, 70, 58);
+    border-width: 1px;
+    border-color: rgb(73, 112, 88);
+    border-radius: 3px;
+    font-size: 11px;
+}
+
+.settings-scroll {
+    flex-basis: 330px;
+    flex-grow: 0;
+    flex-shrink: 1;
+    min-height: 84px;
+    max-height: 440px;
+    margin-bottom: 8px;
+}
+
+.settings-scroll .unity-scroll-view__content-container {
+    padding-right: 4px;
 }
 
 .hint {
@@ -22,26 +85,124 @@
 }
 
 .section {
-    padding: 10px;
+    flex-shrink: 0;
+    padding: 11px;
     border-width: 1px;
     border-color: rgb(70, 74, 82);
     border-radius: 4px;
+    background-color: rgb(42, 45, 51);
+}
+
+.section-header {
+    flex-direction: row;
+    align-items: center;
     margin-bottom: 8px;
+    padding-bottom: 7px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(66, 70, 79);
+}
+
+.section-index {
+    min-width: 26px;
+    height: 22px;
+    margin-right: 8px;
+    padding-top: 3px;
+    color: rgb(145, 185, 240);
+    background-color: rgb(39, 62, 92);
+    border-width: 1px;
+    border-color: rgb(63, 103, 155);
+    border-radius: 3px;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
 }
 
 .section-title {
+    font-size: 14px;
     -unity-font-style: bold;
-    margin-bottom: 4px;
+}
+
+.field-heading {
+    margin-top: 2px;
+    margin-bottom: 5px;
+    color: rgb(208, 212, 220);
+    -unity-font-style: bold;
+}
+
+.quick-guide {
+    flex-shrink: 0;
+    padding: 6px 8px;
+    margin-bottom: 8px;
+    color: rgb(180, 205, 235);
+    background-color: rgb(37, 48, 63);
+    border-left-width: 2px;
+    border-left-color: rgb(70, 132, 220);
+    white-space: normal;
+}
+
+.inline-heading {
+    margin-right: 8px;
 }
 
 .prompt {
     min-height: 86px;
-    margin-bottom: 6px;
+    flex-shrink: 0;
+    margin-bottom: 8px;
+}
+
+.instruction-foldout {
+    flex-shrink: 0;
+    margin-bottom: 8px;
+    padding: 6px 8px;
+    background-color: rgb(37, 40, 46);
+    border-width: 1px;
+    border-color: rgb(61, 65, 74);
+    border-radius: 3px;
+}
+
+.instruction {
+    min-height: 150px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.subsection {
+    flex-shrink: 0;
+    padding: 8px;
+    margin-top: 7px;
+    background-color: rgb(38, 41, 47);
+    border-width: 1px;
+    border-color: rgb(61, 65, 74);
+    border-radius: 3px;
+}
+
+.reference-list {
+    min-height: 28px;
+    flex-shrink: 0;
+}
+
+.record-select {
+    min-width: 300px;
+}
+
+.preset-name {
+    min-width: 240px;
+}
+
+.reference-row {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 3px;
+}
+
+.reference-row > ObjectField {
+    flex-grow: 1;
+    margin-right: 5px;
 }
 
 .row {
     flex-direction: row;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .wrap {
@@ -53,15 +214,58 @@
     min-width: 220px;
 }
 
+.queue-panel {
+    flex-basis: 210px;
+    flex-grow: 1;
+    flex-shrink: 0;
+    min-height: 210px;
+    padding: 10px;
+    overflow: hidden;
+    background-color: rgb(42, 45, 51);
+    border-width: 1px;
+    border-color: rgb(70, 74, 82);
+    border-radius: 4px;
+}
+
+.queue-header {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    margin-bottom: 6px;
+}
+
+.queue-heading {
+    min-width: 260px;
+}
+
+.queue-title {
+    font-size: 14px;
+    -unity-font-style: bold;
+}
+
+.queue-hint {
+    margin-left: 34px;
+    margin-bottom: 0;
+}
+
 .toolbar {
-    margin-top: 4px;
-    margin-bottom: 8px;
+    flex-shrink: 0;
+    padding: 7px;
+    margin-bottom: 7px;
+    background-color: rgb(37, 40, 46);
+    border-width: 1px;
+    border-color: rgb(61, 65, 74);
+    border-radius: 3px;
 }
 
 .toolbar > Button,
 .row > Button {
+    min-height: 27px;
+    padding-left: 10px;
+    padding-right: 10px;
     margin-right: 5px;
     margin-bottom: 4px;
+    border-radius: 3px;
 }
 
 .primary {
@@ -70,15 +274,40 @@
     -unity-font-style: bold;
 }
 
+.primary:hover {
+    background-color: rgb(57, 116, 210);
+}
+
+.warning-button {
+    color: rgb(235, 190, 120);
+    border-color: rgb(145, 105, 55);
+}
+
+.quiet-button,
+.utility-button {
+    color: rgb(180, 187, 200);
+    background-color: rgb(54, 58, 66);
+}
+
+.utility-row {
+    justify-content: flex-end;
+}
+
 .summary {
+    flex-shrink: 0;
+    padding: 5px 8px;
+    margin-left: 8px;
+    color: rgb(190, 205, 225);
+    background-color: rgb(47, 53, 63);
+    border-radius: 3px;
     -unity-font-style: bold;
-    margin-top: 7px;
-    margin-bottom: 5px;
+    font-size: 11px;
 }
 
 .job-list {
     flex-grow: 1;
-    min-height: 240px;
+    flex-shrink: 1;
+    min-height: 78px;
 }
 
 .job-card {
@@ -101,6 +330,16 @@
 .job-detail {
     color: rgb(165, 170, 180);
     white-space: normal;
+}
+
+.job-preview {
+    height: 150px;
+    min-height: 96px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: rgb(28, 31, 36);
+    border-width: 1px;
+    border-color: rgb(70, 74, 82);
 }
 
 .job-buttons {
